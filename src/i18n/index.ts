@@ -4,9 +4,9 @@ import { en } from './en.js'
 import { ru } from './ru.js'
 
 export const tr = createMtcuteI18n({
-    primaryLanguage: {
-        name: 'en',
-        strings: en,
-    },
-    otherLanguages: { ru },
+  primaryLanguage: {
+    name: 'en',
+    strings: en,
+  },
+  otherLanguages: { ru },
 })

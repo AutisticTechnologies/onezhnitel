@@ -1,3 +1,3 @@
 export const en = {
-    helloWorld: 'Hello, world!',
+  helloWorld: 'Hello, world!',
 } as const
