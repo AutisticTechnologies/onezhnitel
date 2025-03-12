@@ -1,0 +1,30 @@
+{
+    "name": "onezhnitel",
+    "type": "module",
+    "version": "0.0.1",
+    "packageManager": "pnpm@10.6.2",
+    "license": "MIT",
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "start": "dotenv tsx ./src/main.ts",
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@mtcute/dispatcher": "^0.22.0",
+        "@mtcute/i18n": "^0.19.0",
+        "@mtcute/node": "^0.22.0",
+        "dotenv-cli": "^8.0.0"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^4.10.1",
+        "@types/node": "^22.13.10",
+        "tsx": "^4.19.3",
+        "typescript": "^5.8.2"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "better-sqlite3"
+        ]
+    }
+}
