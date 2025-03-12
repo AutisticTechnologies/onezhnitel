@@ -1,20 +1,17 @@
-import { Dispatcher, filters } from '@mtcute/dispatcher'
-import { TelegramClient } from '@mtcute/node'
-
+import startBot from './bot/index.js'
 import * as env from './env.js'
-import { tr } from './i18n/index.js'
 
-const tg = new TelegramClient({
-  apiId: env.API_ID,
-  apiHash: env.API_HASH,
-  storage: 'bot-data/session',
-})
+import process from 'node:process'
 
-const dp = Dispatcher.for(tg)
+if (process.argv[1] === import.meta.filename) {
+  // NOTE: start the bot if the script is launched as a main
+  await startBot({
+    clientOptions: {
+      apiId: env.API_ID,
+      apiHash: env.API_HASH,
+    },
+    botToken: env.BOT_TOKEN
+  })
+}
 
-dp.onNewMessage(filters.start, async (msg) => {
-  await msg.answerText(tr(msg, 'helloWorld'))
-})
-
-const user = await tg.start({ botToken: env.BOT_TOKEN })
-console.log('Logged in as', user.username)
+export default { startBot }
