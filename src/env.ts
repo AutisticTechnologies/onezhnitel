@@ -1,11 +1,13 @@
+import assert from 'node:assert/strict'
 import process from 'node:process'
 
-const API_ID = Number.parseInt(process.env.API_ID!)
-const API_HASH = process.env.API_HASH!
-const BOT_TOKEN = process.env.BOT_TOKEN!
+export const API_ID = Number.parseInt(process.env.API_ID!)
+export const API_HASH = process.env.API_HASH!
+export const BOT_TOKEN = process.env.BOT_TOKEN!
 
-if (Number.isNaN(API_ID) || !API_HASH) {
-  throw new Error('API_ID or API_HASH not set!')
-}
+assert(
+  !Number.isNaN(API_ID) && API_HASH !== null && BOT_TOKEN !== null,
+  'API_ID or API_HASH or BOT_TOKEN not defined!'
+)
 
-export { API_HASH, API_ID, BOT_TOKEN }
+export const STORAGE_TYPE = process.env.STORAGE_TYPE ?? 'filesystem'

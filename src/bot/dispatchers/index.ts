@@ -17,7 +17,7 @@ export interface Dependenices {
   /**
    * Storage type
    */
-  storage: 'filesystem'
+  storage: string
 }
 
 export default function configureDispatchers(

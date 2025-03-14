@@ -11,7 +11,7 @@ if (process.argv[1] === import.meta.filename) {
       apiHash: env.API_HASH,
     },
     dependenices: {
-      storage: 'filesystem',
+      storage: env.STORAGE_TYPE,
     },
     botToken: env.BOT_TOKEN,
   })
