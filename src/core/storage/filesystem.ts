@@ -1,7 +1,7 @@
 import type { UUID } from 'node:crypto'
 import type { Readable } from 'node:stream'
-import os from 'node:os'
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import { pipeline } from 'node:stream/promises'
 
@@ -34,24 +34,15 @@ export class FilesystemStorage extends Storage {
     }
 
     setInterval(
-      () => this.cleanup(),
+      () => this.clearExpired(),
       FilesystemStorage.INTERVAL_IN_MILLISECONDS,
     )
   }
 
   private createTemporaryDirectory(): string {
     return fs.mkdtempSync(
-      path.join(os.tmpdir(), FilesystemStorage.TEMPORARY_DIRECTORY_PREFIX)
+      path.join(os.tmpdir(), FilesystemStorage.TEMPORARY_DIRECTORY_PREFIX),
     )
-  }
-
-  private async cleanup(): Promise<void> {
-    const now = Date.now()
-    this.entries.forEach(async (entry) => {
-      if (entry.expiresAt < now) {
-        await this.remove(entry.id)
-      }
-    })
   }
 
   public async save(
@@ -89,5 +80,20 @@ export class FilesystemStorage extends Storage {
 
     fs.unlinkSync(this.entries[entry].path)
     this.entries.splice(entry, 1)
+  }
+
+  private async clearExpired(): Promise<void> {
+    const now = Date.now()
+    this.entries.forEach(async (entry) => {
+      if (entry.expiresAt < now) {
+        await this.remove(entry.id)
+      }
+    })
+  }
+
+  public async clear(): Promise<void> {
+    this.entries.forEach(async (entry) => {
+      await this.remove(entry.id)
+    })
   }
 }

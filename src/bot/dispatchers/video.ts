@@ -1,6 +1,8 @@
+/* eslint-disable perfectionist/sort-imports */
 import type { MessageContext } from '@mtcute/dispatcher'
 import { Dispatcher, filters } from '@mtcute/dispatcher'
 
+import type { ValidationErrorCode } from '../../core/utils/validator.js'
 import validate from '../../core/utils/validator.js'
 import respondWithValidationError from '../utils/vaildation.js'
 
@@ -12,10 +14,10 @@ dispatcher.onNewMessage(filters.video, async (message) => {
   const { duration, fileSize: size } = message.media
 
   const validationResult = validate(duration, size!)
-  if (!validationResult.success) {
+  if (validationResult !== true) {
     return await respondWithValidationError(
       message as MessageContext,
-      validationResult.code,
+      validationResult as ValidationErrorCode,
     )
   }
 

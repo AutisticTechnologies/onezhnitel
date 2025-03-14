@@ -22,4 +22,9 @@ export default abstract class Storage {
    * @param id Media ID
    */
   public abstract remove(id: UUID): Promise<void>
+
+  /**
+   * Remove the all media from the storage
+   */
+  public abstract clear(): Promise<void>
 }
